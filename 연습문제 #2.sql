@@ -7,31 +7,31 @@ CREATE DATABASE `Bank`;
 CREATE USER `admin2`@`%` IDENTIFIED BY `1234`;
 GRANT ALL PRIVILEGES ON `Bank`.* TO `admin2`@`%`;
 FLUSH PRIVILEGES;
-#실습2-2
+
 #실습2-2
 CREATE TABLE `bank_customer` (
-	`c_no`		CHAR(14) PRIMARY KEY,
-	`c_name`		VARCHAR(20) NOT NULL,
-	`c_dist`		TINYINT NOT NULL DEFAULT 0,
-	`c_phone`	VARCHAR(20) UNIQUE NOT NULL,
+	`c_no`		CHAR(14) 		PRIMARY KEY,
+	`c_name`		VARCHAR(20) 	NOT NULL,
+	`c_dist`		TINYINT 			NOT NULL DEFAULT 0,
+	`c_phone`	VARCHAR(20) 	UNIQUE NOT NULL,
 	`c_addr`		VARCHAR(100)
 );
 
 CREATE TABLE `bank_account` (
-	`a_no`			CHAR(11) PRIMARY KEY,
-	`a_item_dist`	CHAR(2) NOT NULL,
+	`a_no`			CHAR(11) 	PRIMARY KEY,
+	`a_item_dist`	CHAR(2) 		NOT NULL,
 	`a_item_name`	VARCHAR(20) NOT NULL,
-	`a_c_no`			CHAR(14) NOT NULL,
-	`a_balance`		INT NOT NULL DEFAULT 0,
-	`a_open_date`	DATE NOT NULL
+	`a_c_no`			CHAR(14) 	NOT NULL,
+	`a_balance`		INT 			NOT NULL DEFAULT 0,
+	`a_open_date`	DATE 			NOT NULL
 );
 
 CREATE TABLE `bank_transaction` (
-	`t_no`		 INT AUTO_INCREMENT PRIMARY KEY,
-	`t_a_no`		 CHAR(11) NOT NULL,
-	`t_dist`		 TINYINT NOT NULL,
-	`t_amount`	 INT NOT NULL DEFAULT 0,
-	`t_datetime` DATETIME NOT NULL
+	`t_no`		 INT 			AUTO_INCREMENT PRIMARY KEY,
+	`t_a_no`		 CHAR(11) 	NOT NULL,
+	`t_dist`		 TINYINT		NOT NULL,
+	`t_amount`	 INT 			NOT NULL DEFAULT 0,
+	`t_datetime` DATETIME 	NOT NULL
 );
 
 #실습2-3
