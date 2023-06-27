@@ -90,10 +90,10 @@ FROM `Lectures` AS a
 JOIN `Student` AS b ON a.proNo = b.proNo
 JOIN `Professors`AS c ON b.proNo = c.proNo;
 
-#문제6 - 랜덤 점수 부여
-UPDATE `Register` SET 	`regAttenScore` = CEIL(RAND() * 100),
-								`regMidScore`= CEIL(RAND() * 100),
-								`regFinalScore`= CEIL(RAND() * 100);
+#문제6 - 랜덤 점수 부여 (최소점수 50점)
+UPDATE `Register` SET 	`regAttenScore`	= Floor(RAND() * (100 -50 )) + 50,
+								`regMidScore`		= floor(RAND() * (100 -50 )) + 50,
+								`regFinalScore`	= floor(RAND() * (100 -50 )) + 50;
 								
 #문제7 - 점수 평균
 UPDATE `Register` SET `regTotal` = (`regAttenScore`+`regMidScore`+`regFinalScore`) / 3;
