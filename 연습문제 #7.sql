@@ -98,16 +98,18 @@ JOIN `Products` AS c ON b.prodNo=c.prodNo
 WHERE `cartProdcount` >=2;
 
 #2
-SELECT `prodNo`,b.`cateNo`,`sellerBizName`,`sellerPhone`
+SELECT `prodNo`,b.`cateName`,`sellermanager`,`sellerPhone`
 FROM `Products` AS a
 JOIN `Categories` AS b ON a.cateNo=b.cateNo
 JOIN `Sellers` AS c ON a.sellerNo=c.sellerNo;
 
 #3
-SELECT a.`userId`,`userName`,`userHp`,`userPoint`,SUM(`point`)
+SELECT a.`userId`,`userName`,`userHp`,`userPoint`,
+IF(SUM(`point`) IS NULL, 0,SUM(`point`)) AS `적립포인트 총합`
 FROM `Users` AS a
 JOIN `Points` AS b ON a.userId=b.userId
 GROUP BY a.`userId`;
+
 
 #4
 SELECT a.`orderNo`,b.`userId`,`userName`,`itemPrice`,`orderDate`
@@ -117,15 +119,17 @@ JOIN `OrderItems` AS c ON a.orderNo=c.orderNo
 WHERE `itemPrice` >= 100000 order BY `itemPrice` DESC ,`userName`;
 
 #5
-SELECT `orderNo`, b.`userId`, `userName`, GROUP_CONCAT(`prodName`), `orderDate`
+SELECT `orderNo`,ANY_VALUE (b.`userId`),ANY_VALUE ( `userName`), 
+GROUP_CONCAT(`prodName`), ANY_VALUE (`orderDate`)
 FROM `Orders` AS a
 JOIN `Users` AS b ON a.userId = b.userId
 JOIN `Carts` AS c ON b.userId = c.userId
 JOIN `Products` AS d ON c.prodNo = d.prodNo
-GROUP BY `orderNo`, b.`userId`, `userName`, `orderDate`;
+GROUP BY `orderNo`;
 
 #6
-SELECT `prodNo`,`prodName`,`prodPrice`,`prodDiscount`,(`prodPrice`*((100-`prodDiscount`)/100)) AS '할인가'
+SELECT `prodNo`,`prodName`,`prodPrice`,`prodDiscount`,
+FLOOR(`prodPrice`*(1-`prodDiscount`/100)) AS '할인가'
 FROM `Products`;
 
 #7
@@ -143,16 +147,31 @@ WHERE `prodNo` IS NULL;
 #9
 SELECT `orderNo`, `최종총합`
 FROM (
-  SELECT `orderNo`, SUM((`itemPrice`*((100-`itemDiscount`)/100))*`itemCount`) AS '최종총합'
+  SELECT `orderNo`, SUM(FLOOR(`itemPrice`*(1-`itemDiscount`/100))*`itemCount`) AS '최종총합'
   FROM `Orderitems`
   GROUP BY `orderNo`
 ) AS a
 WHERE `최종총합` >= 100000
 ORDER BY `최종총합` DESC;
 
+
+SELECT 
+		`orderNo`,
+		SUM(FLOOR(`itemPrice`*(1-`itemDiscount`/100))*`itemCount`) AS `최종총합`
+  FROM `Orderitems`
+  GROUP BY `orderNo`
+HAVING `최종총합` >= 100000
+ORDER BY `최종총합` DESC;
+
+
 #10
 
-
+SELECT 
+		`userName`,
+		GROUP_CONCAT(`prodName` SEPARATOR ',')
+FROM `orders` AS a
+JOIN `Users` AS b ON a.userId=b.userId
+JOIN 
 
 
 

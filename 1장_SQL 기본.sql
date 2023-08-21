@@ -12,7 +12,7 @@ create table `User1` (
     `name`	varchar(10),
     `hp`	char(13),
     `age`	int
-);
+);user1
 
 drop table `User1`;
 

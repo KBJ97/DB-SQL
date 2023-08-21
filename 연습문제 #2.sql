@@ -10,13 +10,12 @@ FLUSH PRIVILEGES;
 
 #실습2-2
 CREATE TABLE `bank_customer` (
-	`c_no`		CHAR(14) 		PRIMARY KEY,
-	`c_name`		VARCHAR(20) 	NOT NULL,
-	`c_dist`		TINYINT 			NOT NULL DEFAULT 0,
-	`c_phone`	VARCHAR(20) 	UNIQUE NOT NULL,
-	`c_addr`		VARCHAR(100)
+    `c_no`      CHAR(14)        PRIMARY KEY,
+    `c_name`        VARCHAR(20)     NOT NULL,
+    `c_dist`        TINYINT         NOT NULL DEFAULT 0,
+    `c_phone`   VARCHAR(20)     UNIQUE NOT NULL,
+    `c_addr`        VARCHAR(100)
 );
-
 CREATE TABLE `bank_account` (
 	`a_no`			CHAR(11) 	PRIMARY KEY,
 	`a_item_dist`	CHAR(2) 		NOT NULL,
@@ -66,7 +65,6 @@ INSERT INTO `bank_transaction` (`t_a_no`, `t_dist`, `t_amount`, `t_datetime`) VA
 INSERT INTO `bank_transaction` (`t_a_no`, `t_dist`, `t_amount`, `t_datetime`) VALUES ('101-11-2002', 2, 32000, NOW());
 INSERT INTO `bank_transaction` (`t_a_no`, `t_dist`, `t_amount`, `t_datetime`) VALUES ('101-11-2003', 3, 0, NOW());
 INSERT INTO `bank_transaction` (`t_a_no`, `t_dist`, `t_amount`, `t_datetime`) VALUES ('101-11-1003', 1, 75000, NOW());
-
 #실습2-4
 SELECT * FROM `bank_customer`;
 
@@ -206,4 +204,4 @@ JOIN `bank_account` 		AS b ON a.t_a_no = b.a_no
 JOIN `bank_customer` 	AS c ON b.a_c_no = c.c_no
 WHERE `t_dist` IN(1, 2) AND `c_dist` = 1
 GROUP BY `c_no`
-ORDER BY `구분`, `거래건수` ;    
+ORDER BY `구분`, `거래건수` ;    user3

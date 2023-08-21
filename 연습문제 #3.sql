@@ -216,4 +216,3 @@ GROUP_CONCAT(if(`regTotalScore` >= 60, `lecName`, null)) AS `이수과목`
 FROM `Student` AS a
 JOIN `Register` AS b ON a.stdNo = b.regStdNo
 JOIN `Lecture` AS c ON b.regLecNo = c.lecNo
-GROUP BY `stdNo`;
